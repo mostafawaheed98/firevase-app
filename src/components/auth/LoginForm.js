@@ -3,15 +3,16 @@ import { useForm } from 'react-hook-form';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {useAuth} from '../../hooks/useAuth';
 
-function SignupForm() {
+
+function LoginForm() {
 
     const {register, handleSubmit, formState: {errors, isSubmitting, isSubmitSuccessful}, setError, reset} = useForm({mode: 'onChange'});
-    const {user, signup} = useAuth();
+    const {user, login} = useAuth();
     const navigate = useNavigate();
     const onSubmit = async (data)=>{
         try {
-            await signup(data.email, data.password);
-            navigate("/");
+            await login(data.email, data.password);
+            navigate("/")
         } catch (error) {
             setError("server",{
                 type: "manual",
@@ -23,7 +24,7 @@ function SignupForm() {
     return (
         <>
             {user != null && <Navigate to="/"/>}
-            <h2>Signup Now!</h2>
+            <h2>Login Now!</h2>
             <hr />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">
@@ -38,10 +39,10 @@ function SignupForm() {
                     <input {...register("password", {required: "Your password is required!", minLength: {value:6, message:"Password must be at least 6" }})} type="password" className="form-control" id="password" aria-describedby="passwordValidation"/>
                     {errors.password && <div id='passwordValidation' className="text-danger">{errors.password.message}</div>}
                 </div>
-                <button type="submit" className="btn btn-primary">{isSubmitting && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>} Signup</button>
+                <button type="submit" className="btn btn-primary">{isSubmitting && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>} Login</button>
             </form>
         </>
     );
 }
 
-export default SignupForm;
+export default LoginForm;

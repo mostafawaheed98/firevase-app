@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
+import LoginForm from './auth/LoginForm';
 import SignupForm from './auth/SignupForm';
 import Home from './Home';
 import Layout from './layout/Layout';
@@ -13,6 +14,7 @@ function App() {
                     <Route index element={<Home/>}/>
                     <Route path="*" element={<NotFound/>}/>
                     <Route path="signup" element={<SignupForm/>}/>
+                    <Route path="login" element={<LoginForm/>}/>
                 </Route>
             </Routes>
         </>
